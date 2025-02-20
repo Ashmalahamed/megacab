@@ -91,7 +91,7 @@
 
 <br>
 <a href="users-interface.jsp">⬅ Go Back to Home</a>
-<a href="logout.jsp" class="logout">Logout</a>
+<a href="logout.jsp" class="logout" >Logout</a>
 </body>
 </html>
 
