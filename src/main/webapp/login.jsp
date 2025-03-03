@@ -20,7 +20,7 @@
 
         body {
             font-family: 'Poppins', sans-serif;
-            background: linear-gradient(135deg, #6a11cb, #2575fc);
+            background-color: #121212;
             display: flex;
             justify-content: center;
             align-items: center;
