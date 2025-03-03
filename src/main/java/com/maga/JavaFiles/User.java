@@ -1,4 +1,4 @@
-package com.maga.Authentication;
+package com.maga.JavaFiles;
 
 public class User {
     private String name;
