@@ -9,6 +9,10 @@
 <html>
 <head>
   <title>User Registration</title>
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <style>
     /* General Reset */
     * {
@@ -27,6 +31,7 @@
       align-items: center;
       height: 100vh;
       margin: 0;
+      overflow: hidden;
     }
 
     /* Form Container */
@@ -39,6 +44,7 @@
       box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
       backdrop-filter: blur(10px);
       border: 1px solid rgba(255, 255, 255, 0.1);
+      animation: fadeIn 1.5s ease-in-out;
     }
 
     /* Form Heading */
@@ -47,6 +53,18 @@
       margin-bottom: 20px;
       color: #333;
       text-align: start;
+      position: relative;
+    }
+
+    h2::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 0;
+      width: 50px;
+      height: 3px;
+      background: linear-gradient(135deg, #6a11cb, #2575fc);
+      border-radius: 5px;
     }
 
     /* Input Fields */
@@ -77,6 +95,8 @@
       font-size: 1rem;
       cursor: pointer;
       transition: background 0.3s ease, transform 0.3s ease;
+      position: relative;
+      overflow: hidden;
     }
 
     button:hover {
@@ -86,6 +106,23 @@
 
     button:active {
       transform: translateY(0);
+    }
+
+    /* Button Hover Effect */
+    button::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: rgba(255, 255, 255, 0.3);
+      transition: left 0.5s ease;
+      z-index: -1;
+    }
+
+    button:hover::before {
+      left: 0;
     }
 
     /* Link Styling */
@@ -105,20 +142,29 @@
     a:hover {
       color: #2575fc;
     }
+
+    /* Animations */
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
   </style>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
 </head>
 <body>
-
-<h2>User Registration</h2>
 <form action="register" method="post">
+  <h2>User Registration</h2>
   <input type="text" name="name" placeholder="Enter your name" required>
   <input type="email" name="email" placeholder="Enter your email" required>
   <input type="password" name="password" placeholder="Enter your password" required>
   <button type="submit">Register</button>
+  <p>Already have an account? <a href="login.jsp">Login here</a></p>
 </form>
-
-<p>Already have an account? <a href="login.jsp">Login here</a></p>
 
 </body>
 </html>
