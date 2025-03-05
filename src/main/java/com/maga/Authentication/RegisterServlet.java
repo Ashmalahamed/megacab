@@ -1,5 +1,6 @@
 package com.maga.Authentication;
 
+import com.maga.JavaFiles.User;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -8,7 +9,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
-import java.io.Serial; // Ensure this import is present if using @Serial
+import java.io.Serial;
 
 @WebServlet("/register") // Add this annotation to map the servlet to a URL
 public class RegisterServlet extends HttpServlet {
@@ -21,37 +22,38 @@ public class RegisterServlet extends HttpServlet {
         String password = request.getParameter("password");
 
         // Print received parameters
-        System.out.println(" Received Registration Data: ");
+        System.out.println("Received Registration Data: ");
         System.out.println("Name: " + name);
         System.out.println("Email: " + email);
         System.out.println("Password: " + password);
 
         if (name == null || name.isEmpty() || email == null || email.isEmpty() || password == null || password.isEmpty()) {
-            System.out.println(" Missing form data!");
+            System.out.println("Missing form data!");
             response.sendRedirect("register-failed.jsp");
             return;
         }
 
+        // Create a User object with the correct constructor
         User user = new User(name, email, password);
         UserDAO userDAO = new UserDAO();
 
         try {
-            boolean success = userDAO.registerUser (user);
+            boolean success = userDAO.registerUser(user);
 
             if (success) {
-                System.out.println(" User registered successfully!");
+                System.out.println("User registered successfully!");
                 response.sendRedirect("register-success.jsp");
             } else {
-                System.out.println(" Registration failed: Could not insert user");
+                System.out.println("Registration failed: Could not insert user");
                 response.sendRedirect("register-failed.jsp");
             }
         } catch (Exception e) {
-            System.out.println(" Registration error: " + e.getMessage());
+            System.out.println("Registration error: " + e.getMessage());
             e.printStackTrace();
             response.sendRedirect("register-failed.jsp");
         }
 
         HttpSession session = request.getSession();
-        session.setAttribute("userName", name); // Store user's name in session
+        session.setAttribute("userName", name);
     }
 }

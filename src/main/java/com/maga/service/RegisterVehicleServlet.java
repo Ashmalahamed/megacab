@@ -24,7 +24,7 @@ public class RegisterVehicleServlet extends HttpServlet {
         String driverName = request.getParameter("driverName");
         String contactNumber = request.getParameter("contactNumber");
 
-        // Server-side validation (excluding registration number)
+        // Server-side validation
         StringBuilder errors = new StringBuilder();
 
         if (vehicleName == null || vehicleName.trim().isEmpty()) {
@@ -47,15 +47,15 @@ public class RegisterVehicleServlet extends HttpServlet {
             errors.append("Contact Number must be 10 digits.<br>");
         }
 
-        // If there are validation errors, redirect back to the form
+
         if (errors.length() > 0) {
             response.sendRedirect("registerVehicle.jsp?error=" + errors.toString());
             return;
         }
 
-        // Proceed with database insertion
+
         try {
-            // Establish database connection
+
             Connection conn = DatabaseConnection.getConnection();
             if (conn == null) {
                 System.out.println("Failed to establish database connection.");
@@ -68,7 +68,7 @@ public class RegisterVehicleServlet extends HttpServlet {
             PreparedStatement stmt = conn.prepareStatement(sql);
             stmt.setString(1, vehicleName);
             stmt.setString(2, vehicleType);
-            stmt.setString(3, registrationNumber); // No validation for registration number
+            stmt.setString(3, registrationNumber);
             stmt.setString(4, driverName);
             stmt.setString(5, contactNumber);
 
@@ -92,7 +92,7 @@ public class RegisterVehicleServlet extends HttpServlet {
             }
         } catch (Exception e) {
             e.printStackTrace();
-            // Redirect back to the form with an error message
+
             response.sendRedirect("registerVehicle.jsp?error=Database error. Please try again later.");
         }
     }
