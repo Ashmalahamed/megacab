@@ -103,7 +103,7 @@
     </style>
 </head>
 <body>
-<h2>🚖 Available Drivers</h2>
+<h2> Available Drivers</h2>
 <table>
     <thead>
     <tr>
@@ -137,8 +137,8 @@
         }
     %>
     </tbody>
+
 </table>
-<br>
-<a href="users-interface.jsp">⬅ Go Back to Home</a>
+
 </body>
 </html>
