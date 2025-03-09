@@ -12,67 +12,116 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Register Driver</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Font Awesome Icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+
     <style>
         body {
-            font-family: Arial, sans-serif;
-            margin: 50px;
+            background-color: #f8f9fa;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .form-container {
+            max-width: 500px;
+            margin: 50px auto;
+            padding: 2rem;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            color: #28a745;
             text-align: center;
+            margin-bottom: 1.5rem;
         }
-        form {
-            display: inline-block;
-            text-align: left;
-            padding: 20px;
-            border: 1px solid #ccc;
-            border-radius: 10px;
-            background-color: #f9f9f9;
-        }
+
         label {
             font-weight: bold;
+            color: #333;
         }
+
         input {
-            width: 100%;
-            padding: 8px;
-            margin: 8px 0;
-            border-radius: 5px;
-            border: 1px solid #ccc;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
         }
+
+        input:focus {
+            border-color: #28a745;
+            outline: none;
+            box-shadow: 0 0 8px rgba(40, 167, 69, 0.3);
+        }
+
         button {
             width: 100%;
-            padding: 10px;
-            background-color: #28a745;
+            padding: 12px;
+            background: linear-gradient(135deg, #28a745, #1e7e34);
             color: white;
             border: none;
-            border-radius: 5px;
+            border-radius: 8px;
+            font-size: 1rem;
             cursor: pointer;
+            transition: background 0.3s ease, transform 0.2s ease;
         }
+
         button:hover {
-            background-color: #218838;
+            background: linear-gradient(135deg, #1e7e34, #28a745);
+            transform: translateY(-2px);
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
+
+        .error-message {
+            color: #dc3545;
+            font-size: 0.9rem;
+            text-align: center;
+            margin-bottom: 1rem;
         }
     </style>
 </head>
 <body>
-<h2>🚖 Register as a Driver</h2>
-<% if (request.getParameter("error") != null) { %>
-<p style="color: red;">Error: <%= request.getParameter("error") %></p>
-<% } %>
 
-<form action="RegisterDriverServlet" method="post">
-    <label for="name">Full Name:</label>
-    <input type="text" name="name" id="name" required>
+<div class="form-container">
+    <h2></i> Register a Driver</h2>
 
-    <label for="email">Email:</label>
-    <input type="email" name="email" id="email" required>
+    <%-- Display Error Message --%>
+    <% if (request.getParameter("error") != null) { %>
+    <p class="error-message"><i class="fas fa-exclamation-circle"></i> <%= request.getParameter("error") %></p>
+    <% } %>
 
-    <label for="phone">Phone Number:</label>
-    <input type="text" name="phone" id="phone" required>
+    <form action="RegisterDriverServlet" method="post">
+        <div class="mb-3">
+            <label for="name" class="form-label">Full Name:</label>
+            <input type="text" name="name" id="name" class="form-control" placeholder="Enter your full name" required>
+        </div>
 
-    <label for="licenseNumber">License Number:</label>
-    <input type="text" name="licenseNumber" id="licenseNumber" required>
+        <div class="mb-3">
+            <label for="email" class="form-label">Email:</label>
+            <input type="email" name="email" id="email" class="form-control" placeholder="Enter your email" required>
+        </div>
 
-    <button type="submit">Register</button>
-</form>
-<br>
-<a href="admin-interface.jsp"> Go Back to Home</a>
-<a href="index.jsp">Logout</a>
+        <div class="mb-3">
+            <label for="phone" class="form-label">Phone Number:</label>
+            <input type="text" name="phone" id="phone" class="form-control" placeholder="Enter your phone number" required>
+        </div>
+
+        <div class="mb-3">
+            <label for="licenseNumber" class="form-label">License Number:</label>
+            <input type="text" name="licenseNumber" id="licenseNumber" class="form-control" placeholder="Enter your license number" required>
+        </div>
+
+        <button type="submit" class="btn btn-success">Register</button>
+    </form>
+</div>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
