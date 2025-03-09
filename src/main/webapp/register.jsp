@@ -162,9 +162,10 @@
   <input type="text" name="name" placeholder="Enter your name" required>
   <input type="email" name="email" placeholder="Enter your email" required>
   <input type="password" name="password" placeholder="Enter your password" required>
+  <input type="tel" name="phoneNumber" placeholder="Enter your phone number" required>
+  <input type="text" name="address" placeholder="Enter your address" required>
   <button type="submit">Register</button>
   <p>Already have an account? <a href="login.jsp">Login here</a></p>
 </form>
-
 </body>
 </html>
