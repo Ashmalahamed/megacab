@@ -1,13 +1,14 @@
 <%--
-  Created by IntelliJ IDEA.
-  User: ahame
-  Date: 2025-03-01
-  Time: 4:52 PM
-  To change this template use File | Settings | File Templates.
+Created by IntelliJ IDEA.
+User: ahame
+Date: 2025-03-01
+Time: 4:52 PM
+To change this template use File | Settings | File Templates.
 --%>
 
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ page import="java.sql.*" %>
+<%@ page import="com.maga.service.BookVehicleServlet" %>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -61,6 +62,19 @@
             color: #dc3545;
             font-size: 1.2rem;
         }
+        .btn-book {
+            display: inline-block;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 8px;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+        }
+        .btn-book:hover {
+            background-color: #45a049;
+        }
         .btn-back {
             display: inline-block;
             margin-top: 20px;
@@ -90,6 +104,7 @@
             <th>Vehicle Type</th>
             <th>Registration Number</th>
             <th>Driver Name</th>
+            <th>Action</th> <!-- New column for the "Book" button -->
         </tr>
         </thead>
         <tbody>
@@ -120,6 +135,7 @@
 
                 while (rs.next()) {
                     hasData = true;
+                    int vehicleId = rs.getInt("id"); // Get the vehicle ID for the "Book" button
         %>
         <tr>
             <td><%= rs.getInt("id") %></td>
@@ -127,6 +143,13 @@
             <td><%= rs.getString("vehicle_type") %></td>
             <td><%= rs.getString("registration_number") %></td>
             <td><%= rs.getString("driver_name") %></td>
+            <td>
+                <!-- Book Button -->
+                <form action="BookVehicleServlet" method="post">
+                    <input type="hidden" name="vehicleId" value="<%= vehicleId %>">
+                    <button type="submit" class="btn-book">Book</button>
+                </form>
+            </td>
         </tr>
         <%
             }
@@ -134,7 +157,7 @@
             if (!hasData) {
         %>
         <tr>
-            <td colspan="5" class="no-data"><i class="fas fa-exclamation-circle"></i> No vehicles found in the database.</td>
+            <td colspan="6" class="no-data"><i class="fas fa-exclamation-circle"></i> No vehicles found in the database.</td>
         </tr>
         <%
             }
@@ -142,7 +165,7 @@
             e.printStackTrace();
         %>
         <tr>
-            <td colspan="5" class="error-message"><i class="fas fa-times-circle"></i> Error fetching data from the database!</td>
+            <td colspan="6" class="error-message"><i class="fas fa-times-circle"></i> Error fetching data from the database!</td>
         </tr>
         <%
             } finally {
@@ -158,7 +181,6 @@
 
         </tbody>
     </table>
-
 </div>
 
 <!-- Bootstrap JS -->
