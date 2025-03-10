@@ -46,10 +46,22 @@
         }
         .paid { color: green; }
         .pending { color: red; }
+        .update-btn {
+            background-color: #28a745;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .update-btn:hover {
+            background-color: #218838;
+        }
     </style>
 </head>
 <body>
-<h2>📜 All Bills</h2>
+<h2> All Bills</h2>
 
 <table>
     <tr>
@@ -60,15 +72,18 @@
         <th>Booking Time</th>
         <th>Fare</th>
         <th>Status</th>
+        <th>Action</th>
     </tr>
     <%
         try {
             Connection conn = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/magacabs", "root", "abc123");
-            String sql = "SELECT userName, pickupLocation, dropLocation, cabType, bookingTime, fare, paymentStatus FROM bills";
+            String sql = "SELECT id, userName, pickupLocation, dropLocation, cabType, bookingTime, fare, paymentStatus FROM bills";
             PreparedStatement stmt = conn.prepareStatement(sql);
             ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {
+                int billId = rs.getInt("id");
+                String paymentStatus = rs.getString("paymentStatus");
     %>
     <tr>
         <td><%= rs.getString("userName") %></td>
@@ -77,8 +92,18 @@
         <td><%= rs.getString("cabType") %></td>
         <td><%= rs.getString("bookingTime") %></td>
         <td>Rs.<%= rs.getDouble("fare") %></td>
-        <td class="<%= rs.getString("paymentStatus").equals("Paid") ? "paid" : "pending" %>">
-            <%= rs.getString("paymentStatus") %>
+        <td class="<%= paymentStatus.equals("Paid") ? "paid" : "pending" %>">
+            <%= paymentStatus %>
+        </td>
+        <td>
+            <% if ("Pending".equals(paymentStatus)) { %>
+            <form action="UpdateBillServlet" method="post" style="display: inline;">
+                <input type="hidden" name="billId" value="<%= billId %>">
+                <button type="submit" class="update-btn">Mark as Paid</button>
+            </form>
+            <% } else { %>
+            -
+            <% } %>
         </td>
     </tr>
     <%
@@ -93,7 +118,6 @@
 </table>
 
 <br>
-<a href="index.jsp">⬅ Go Back to Home</a>
+
 </body>
 </html>
-
