@@ -1,6 +1,5 @@
 package com.maga.service;
 
-import com.maga.Model.User;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -11,6 +10,7 @@ import java.io.IOException;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import com.maga.JavaFiles.User;
 
 import com.maga.DB.DatabaseConnection; // Import the existing DatabaseConnection class
 
