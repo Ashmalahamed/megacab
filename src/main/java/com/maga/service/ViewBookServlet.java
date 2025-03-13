@@ -30,7 +30,7 @@ public class ViewBookServlet extends HttpServlet {
             return;
         }
 
-        List<Booking> bookings = new ArrayList<>(); // Corrected variable name
+        List<Booking> bookings = new ArrayList<>();
         Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
