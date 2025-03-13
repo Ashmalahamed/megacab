@@ -1,12 +1,12 @@
 package com.maga.JavaFiles;
 
 public class User {
-    private int id; // Add ID field
+    private int id;
     private String name;
     private String email;
     private String password;
-    private String phoneNumber; // New field
-    private String address;     // New field
+    private String phoneNumber;
+    private String address;
 
     // Constructor with all fields
     public User(int id, String name, String email, String password, String phoneNumber, String address) {
