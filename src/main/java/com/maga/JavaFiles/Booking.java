@@ -1,16 +1,16 @@
 package com.maga.JavaFiles;
 
 public class Booking {
-    private int id; // Unique identifier for the booking
-    private String userName; // Name of the user making the booking
-    private String pickupLocation; // Pickup location
-    private String dropLocation; // Drop location
-    private String cabType; // Type of cab (e.g., Standard, Luxury, SUV)
-    private String bookingTime; // Date and time of the booking
-    private String customerName; // Name of the customer
-    private String customerAddress; // Address of the customer
-    private String customerPhone; // Phone number of the customer
-    private String orderNumber; // Unique order number
+    private int id;
+    private String userName;
+    private String pickupLocation;
+    private String dropLocation;
+    private String cabType;
+    private String bookingTime;
+    private String customerName;
+    private String customerAddress;
+    private String customerPhone;
+    private String orderNumber;
 
     // Parameterized Constructor
     public Booking(int id, String userName, String pickupLocation, String dropLocation, String cabType,
@@ -54,20 +54,4 @@ public class Booking {
     public void setCustomerPhone(String customerPhone) { this.customerPhone = customerPhone; }
     public void setOrderNumber(String orderNumber) { this.orderNumber = orderNumber; }
 
-    // toString method for debugging purposes
-    @Override
-    public String toString() {
-        return "Booking{" +
-                "id=" + id +
-                ", userName='" + userName + '\'' +
-                ", pickupLocation='" + pickupLocation + '\'' +
-                ", dropLocation='" + dropLocation + '\'' +
-                ", cabType='" + cabType + '\'' +
-                ", bookingTime='" + bookingTime + '\'' +
-                ", customerName='" + customerName + '\'' +
-                ", customerAddress='" + customerAddress + '\'' +
-                ", customerPhone='" + customerPhone + '\'' +
-                ", orderNumber='" + orderNumber + '\'' +
-                '}';
-    }
 }
