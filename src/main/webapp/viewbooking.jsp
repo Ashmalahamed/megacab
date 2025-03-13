@@ -10,13 +10,18 @@
 <%@ page session="true" %>
 <%@ page import="jakarta.servlet.http.HttpSession" %>
 <%
+  // Retrieve session attributes
   HttpSession sessionObj = request.getSession(false);
   String userName = (sessionObj != null) ? (String) session.getAttribute("userName") : null;
   String userRole = (sessionObj != null) ? (String) session.getAttribute("userRole") : null;
+
+  // Redirect to login if the user is not logged in
   if (userName == null) {
     response.sendRedirect("login.jsp");
     return;
   }
+
+  // Retrieve bookings from the request attribute
   @SuppressWarnings("unchecked")
   List<Booking> bookings = (List<Booking>) request.getAttribute("bookings");
 %>
@@ -123,7 +128,7 @@
   </style>
 </head>
 <body>
-<h2>📖 View Bookings</h2>
+<h2> View Bookings</h2>
 
 <% if (bookings == null || bookings.isEmpty()) { %>
 <p>No bookings available.</p>
@@ -138,7 +143,10 @@
     <th>Drop Location</th>
     <th>Cab Type</th>
     <th>Booking Time</th>
-    <th>Action</th>
+    <th>Customer Name</th>
+    <th>Customer Address</th>
+    <th>Customer Phone</th>
+    <th>Order Number</th>
   </tr>
   </thead>
   <tbody>
@@ -151,7 +159,12 @@
     <td><%= booking.getDropLocation() %></td>
     <td><%= booking.getCabType() %></td>
     <td><%= booking.getBookingTime() %></td>
-    <td>
+    <td><%= booking.getCustomerName() %></td>
+    <td><%= booking.getCustomerAddress() %></td>
+    <td><%= booking.getCustomerPhone() %></td>
+    <td><%= booking.getOrderNumber() %></td>
+  </tr>
+
       <form action="CancelBookingServlet" method="post" style="display: inline;" onsubmit="return confirm('Are you sure you want to cancel this booking?');">
         <input type="hidden" name="bookingId" value="<%= booking.getId() %>">
         <button type="submit" class="cancel-btn">Cancel</button>
