@@ -61,7 +61,7 @@ public class ViewBookingUserServlet extends HttpServlet {
                         bookingUser.setBookingTime(rs.getString("booking_time"));
                         bookings.add(booking);
 
-                        System.out.println("Retrieved booking: " + bookingUser); // Debugging
+                        System.out.println("Retrieved booking: " + bookingUser);
                     }
                 }
             }
