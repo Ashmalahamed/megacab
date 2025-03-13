@@ -1,59 +1,71 @@
 package com.maga.Authentication;
 
-import com.maga.DB.DatabaseConnection;
+import com.maga.JavaFiles.User;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import com.maga.DB.DatabaseConnection;
 
 public class UserDAO {
-    public boolean registerUser(User user) {
-        Connection conn = DatabaseConnection.getConnection();
-
-        if (conn == null) {
-            System.out.println(" Database connection failed in UserDAO!");
-            return false;
-        }
-
-        String query = "INSERT INTO users (name, email, password) VALUES (?, ?, ?)";
-
-        try (PreparedStatement stmt = conn.prepareStatement(query)) {
-            stmt.setString(1, user.getName());
-            stmt.setString(2, user.getEmail());
-            stmt.setString(3, user.getPassword());
-
-            int rowsInserted = stmt.executeUpdate();
-
-            if (rowsInserted > 0) {
-                System.out.println(" User inserted successfully in database!");
-                return true;
-            } else {
-                System.out.println(" No rows inserted!");
-                return false;
-            }
-        } catch (SQLException e) {
-            System.out.println(" SQL Error in UserDAO: " + e.getMessage());
-            e.printStackTrace();
-            return false;
-        }
-    }
-
 
 
     public User validateUser(String email, String password) {
-        try (Connection conn = DatabaseConnection.getConnection()) {
-            String sql = "SELECT * FROM users WHERE email = ? AND password = ?";
-            PreparedStatement stmt = conn.prepareStatement(sql);
-            stmt.setString(1, email);
-            stmt.setString(2, password);
-            ResultSet rs = stmt.executeQuery();
+        User user = null;
+        String query = "SELECT * FROM users WHERE email = ? AND password = ?";
 
-            if (rs.next()) {
-                return new User(rs.getString("name"), rs.getString("email"), rs.getString("password"));
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(query)) {
+
+            ps.setString(1, email);
+            ps.setString(2, password);
+
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    user = new User(
+                            rs.getInt("id"),
+                            rs.getString("name"),
+                            rs.getString("email"),
+                            rs.getString("password"),
+                            rs.getString("phoneNumber"),
+                            rs.getString("address")
+                    );
+                }
             }
         } catch (SQLException e) {
+            System.out.println("SQL Error in validateUser: " + e.getMessage());
             e.printStackTrace();
         }
-        return null;
+
+        return user;
+    }
+
+
+    public boolean registerUser(User user) {
+        String query = "INSERT INTO users (name, email, password, phoneNumber, address) VALUES (?, ?, ?, ?, ?)";
+
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(query)) {
+
+            ps.setString(1, user.getName());
+            ps.setString(2, user.getEmail());
+            ps.setString(3, user.getPassword());
+            ps.setString(4, user.getPhoneNumber());
+            ps.setString(5, user.getAddress());
+
+            int rowsInserted = ps.executeUpdate();
+
+            if (rowsInserted > 0) {
+                System.out.println("User registered successfully!");
+                return true;
+            } else {
+                System.out.println("No rows inserted during registration.");
+                return false;
+            }
+        } catch (SQLException e) {
+            System.out.println("SQL Error in registerUser: " + e.getMessage());
+            e.printStackTrace();
+            return false;
+        }
     }
 }
