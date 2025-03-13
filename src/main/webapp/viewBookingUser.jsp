@@ -6,7 +6,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<%@ page import="java.util.List, com.maga.JavaFiles.BookingUser" %>
+<%@ page import="java.util.List, com.maga.JavaFiles.Booking" %>
 <%@ page import="jakarta.servlet.http.HttpSession" %>
 
 <!DOCTYPE html>
@@ -35,7 +35,7 @@
         return;
     }
 
-    List<BookingUser> bookings = (List<BookingUser>) request.getAttribute("bookings");
+    List<Booking> bookings = (List<Booking>) request.getAttribute("bookings");
 %>
 
 <div class="container">
@@ -56,7 +56,7 @@
         </tr>
         </thead>
         <tbody>
-        <% for (BookingUser booking : bookings) { %>
+        <% for (Booking booking : bookings) { %>
         <tr>
             <td><%= booking.getId() %></td>
             <td><%= booking.getPickupLocation() %></td>
