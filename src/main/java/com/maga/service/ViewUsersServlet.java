@@ -43,8 +43,8 @@ public class ViewUsersServlet extends HttpServlet {
                             user.setName(rs.getString("name")); // Updated from username to name
                             user.setEmail(rs.getString("email"));
                             user.setPassword(rs.getString("password"));
-                            user.setPhoneNumber(rs.getString("phone_number")); // New field
-                            user.setAddress(rs.getString("address"));         // New field
+                            user.setPhoneNumber(rs.getString("phone_number"));
+                            user.setAddress(rs.getString("address"));
                             users.add(user);
                             System.out.println("User added: " + user.getName());
                         }
