@@ -1,6 +1,6 @@
 package com.maga.service;
 
-import com.maga.JavaFiles.BookingUser;
+import com.maga.JavaFiles.Booking;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -16,9 +16,11 @@ import java.util.ArrayList;
 import java.util.List;
 import com.maga.DB.DatabaseConnection;
 
+
 @WebServlet("/ViewBookingUserServlet")
 public class ViewBookingUserServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
+    private Booking booking;
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession(false);
@@ -30,7 +32,7 @@ public class ViewBookingUserServlet extends HttpServlet {
             return;
         }
 
-        List<BookingUser> bookings = new ArrayList<>();
+        List<Booking> bookings = new ArrayList<>();
 
         try (Connection conn = DatabaseConnection.getConnection()) {
             if (conn == null) {
@@ -51,13 +53,13 @@ public class ViewBookingUserServlet extends HttpServlet {
                     }
 
                     while (rs.next()) {
-                        BookingUser bookingUser = new BookingUser();
+                        Booking bookingUser = new Booking();
                         bookingUser.setId(rs.getInt("id"));
                         bookingUser.setPickupLocation(rs.getString("pickup_location"));
                         bookingUser.setDropLocation(rs.getString("dropoff_location"));
                         bookingUser.setCabType(rs.getString("cab_type"));
                         bookingUser.setBookingTime(rs.getString("booking_time"));
-                        bookings.add(bookingUser);
+                        bookings.add(booking);
 
                         System.out.println("Retrieved booking: " + bookingUser); // Debugging
                     }
