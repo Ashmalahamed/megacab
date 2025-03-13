@@ -3,7 +3,6 @@
   User: ahame
   Date: 2025-02-21
   Time: 10:21 PM
-  To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
@@ -77,44 +76,37 @@
         button:active {
             transform: translateY(0);
         }
-
-        .error-message {
-            color: #dc3545;
-            font-size: 0.9rem;
-            text-align: center;
-            margin-bottom: 1rem;
-        }
     </style>
 </head>
 <body>
 
 <div class="form-container">
-    <h2></i> Register a Driver</h2>
+    <h2><i class="fas fa-user-plus"></i> Register a Driver</h2>
 
     <%-- Display Error Message --%>
     <% if (request.getParameter("error") != null) { %>
-    <p class="error-message"><i class="fas fa-exclamation-circle"></i> <%= request.getParameter("error") %></p>
+    <p style="color: red; text-align: center;"><i class="fas fa-exclamation-circle"></i> <%= request.getParameter("error").replace("+", " ") %></p>
     <% } %>
 
     <form action="RegisterDriverServlet" method="post">
         <div class="mb-3">
             <label for="name" class="form-label">Full Name:</label>
-            <input type="text" name="name" id="name" class="form-control" placeholder="Enter your full name" required>
+            <input type="text" name="name" id="name" class="form-control" placeholder="Enter your full name">
         </div>
 
         <div class="mb-3">
             <label for="email" class="form-label">Email:</label>
-            <input type="email" name="email" id="email" class="form-control" placeholder="Enter your email" required>
+            <input type="email" name="email" id="email" class="form-control" placeholder="Enter your email">
         </div>
 
         <div class="mb-3">
             <label for="phone" class="form-label">Phone Number:</label>
-            <input type="text" name="phone" id="phone" class="form-control" placeholder="Enter your phone number" required>
+            <input type="text" name="phone" id="phone" class="form-control" placeholder="Enter your phone number">
         </div>
 
         <div class="mb-3">
             <label for="licenseNumber" class="form-label">License Number:</label>
-            <input type="text" name="licenseNumber" id="licenseNumber" class="form-control" placeholder="Enter your license number" required>
+            <input type="text" name="licenseNumber" id="licenseNumber" class="form-control" placeholder="Enter your license number">
         </div>
 
         <button type="submit" class="btn btn-success">Register</button>
