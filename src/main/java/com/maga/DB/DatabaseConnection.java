@@ -10,10 +10,7 @@ public class DatabaseConnection {
     private static final String USER = "root";
     private static final String PASSWORD = "abc123"; // Replace with your actual database password
 
-    /**
-     * Method to establish a database connection.
-     * @return Connection object if successful, null otherwise.
-     */
+
     public static Connection getConnection() {
         try {
             // Load the JDBC driver
